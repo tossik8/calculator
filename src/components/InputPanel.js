@@ -9,7 +9,8 @@ const InputPanel = () => {
     const handleChange = (event) =>{
         let content = event.target.value;
         let lastCharacter = content.charAt(content.length-1);
-        if((!isNaN(content) || lastCharacter === "*"|| lastCharacter === "/ "|| lastCharacter === "+"|| lastCharacter === "-"|| lastCharacter === ".") && lastCharacter!==" "){
+        if((!isNaN(lastCharacter) || lastCharacter === "*" || lastCharacter === "/" || lastCharacter === "+" || lastCharacter === "-" || lastCharacter === ".") && lastCharacter!==" "){
+            console.log(lastCharacter);
             dispatch(inputActions.handleInput(content));
             if(content.length === 22 && !isNaN(lastCharacter)){
                 dispatch(inputActions.handleInput("Digimit Limit Met"));
@@ -21,7 +22,21 @@ const InputPanel = () => {
                 document.getElementById("input").disabled = false;
             }
             else if(!isNaN(lastCharacter)){
-                dispatch(displayActions.handleInput(content));
+                if(content.charAt(content.length-2) === "+" ||
+                  content.charAt(content.length-2) === "/" ||
+                  content.charAt(content.length-2) === "*" ||
+                  content.charAt(content.length-2) === "-"){
+                    dispatch(displayActions.handleInput(lastCharacter));
+                    dispatch(inputActions.handleInput(lastCharacter));
+                }
+
+                else{
+                    dispatch(displayActions.handleInput(lastCharacter));
+                }
+            }
+            else{
+                dispatch(displayActions.handleInput(lastCharacter));
+                dispatch(inputActions.handleInput(lastCharacter));
             }
         }
 

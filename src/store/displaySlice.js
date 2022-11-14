@@ -9,14 +9,8 @@ const dipslaySlice = createSlice({
     },
     reducers:{
         handleInput(state, action){
-            state.values[state.index]  = action.payload;
-        },
-        substituteSign(state, action){
-            state.values[state.index-1] = action.payload;
-        },
-        handleSign(state, action){
-            state.values[++state.index] = action.payload;
-            console.log(state.values[state.index++])
+            state.equation +=action.payload;
+            console.log(state.equation);
         },
         clearInput(state){
             state.equation = "";

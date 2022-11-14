@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux/es/exports";
 
 const DisplayPanel = () => {
-    const equation = useSelector(state => state.displayReducer.values);
+    const equation = useSelector(state => state.displayReducer.equation);
     return (
          <div>
-            <p>{equation.join(" ")}</p>
+            <p>{equation}</p>
          </div>
     );
 }
