@@ -9,7 +9,8 @@ const InputPanel = () => {
     const handleChange = (event) =>{
         dispatch(inputActions.handleInput(event.target.value));
         let content = event.target.value;
-        if(content.length === 22 && !isNaN(content.at(content.length -1))){
+        let lastCharacter = content.charAt(content.length-1);
+        if(content.length === 22 && !isNaN(lastCharacter)){
             dispatch(inputActions.handleInput("Digimit Limit Met"));
             document.getElementById("input").disabled = true;
             setTimeout(() => {
@@ -17,7 +18,9 @@ const InputPanel = () => {
                 document.getElementById("input").focus();
             }, 1000);
             document.getElementById("input").disabled = false;
-
+        }
+        else if(!isNaN(lastCharacter)){
+            dispatch(displayActions.handleInput(content));
         }
     }
 
