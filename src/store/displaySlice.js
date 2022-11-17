@@ -10,7 +10,6 @@ const dipslaySlice = createSlice({
     reducers:{
         handleInput(state, action){
             state.equation +=action.payload;
-            console.log(state.equation);
         },
         clearInput(state){
             state.equation = "";

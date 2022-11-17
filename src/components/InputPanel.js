@@ -5,13 +5,12 @@ import { inputActions } from "../store/inputSlice";
 const InputPanel = () => {
     const dispatch = useDispatch();
     const inputValue = useSelector(state => state.inputReducer.value);
+    const equation = useSelector(state => state.displayReducer.equation);
 
     const handleChange = (event) =>{
         let content = event.target.value;
         let lastCharacter = content.charAt(content.length-1);
         if((!isNaN(lastCharacter) || lastCharacter === "*" || lastCharacter === "/" || lastCharacter === "+" || lastCharacter === "-" || lastCharacter === ".") && lastCharacter!==" "){
-            console.log(lastCharacter);
-            dispatch(inputActions.handleInput(content));
             if(content.length === 22 && !isNaN(lastCharacter)){
                 dispatch(inputActions.handleInput("Digimit Limit Met"));
                 document.getElementById("input").disabled = true;
@@ -31,12 +30,32 @@ const InputPanel = () => {
                 }
 
                 else{
+                    dispatch(inputActions.handleInput(content));
                     dispatch(displayActions.handleInput(lastCharacter));
                 }
             }
             else{
-                dispatch(displayActions.handleInput(lastCharacter));
-                dispatch(inputActions.handleInput(lastCharacter));
+                if(equation !== ""){
+
+                    if(!isNaN(content.charAt(content.length-2))){
+
+                        dispatch(displayActions.handleInput(lastCharacter));
+                        dispatch(inputActions.handleInput(lastCharacter));
+                    }
+                    else if(isNaN(content.charAt(content.length-2)) && lastCharacter !== "-"){
+
+                    }
+                    else if(isNaN(content.charAt(content.length-2)) && lastCharacter === "-"){
+                        if(!isNaN(equation.charAt(equation.length - 2))){
+                            dispatch(displayActions.handleInput(lastCharacter));
+                            dispatch(inputActions.handleInput(lastCharacter));
+                        }
+
+                    }
+                }
+
+
+
             }
         }
 
