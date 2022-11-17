@@ -21,7 +21,7 @@ const InputPanel = () => {
             }
 
         }
-    }, []);
+    });
 
 
     function solveEquation(equation){
