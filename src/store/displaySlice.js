@@ -4,6 +4,8 @@ const dipslaySlice = createSlice({
     name: "display",
     initialState:{
         equation: "",
+        isEmpty: true,
+        isDecimal: false,
         values:[],
         index:0
     },
@@ -11,8 +13,19 @@ const dipslaySlice = createSlice({
         handleInput(state, action){
             state.equation +=action.payload;
         },
+        handleEmpty(state, action){
+            state.isEmpty = action.payload;
+        },
+        handleDecimal(state, action){
+            state.isDecimal = action.payload;
+        },
+        changeSign(state, action){
+            state.equation = action.payload;
+        },
         clearInput(state){
             state.equation = "";
+            state.isDecimal = false;
+            state.isEmpty = true;
         },
         solveEquation(state){
 
