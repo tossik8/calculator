@@ -19,9 +19,14 @@ const InputPanel = () => {
             else if(event.keyCode === 8){
                 event.preventDefault();
             }
+
         }
     }, []);
 
+
+    function solveEquation(equation){
+        return 0;
+    }
     const handleChange = (event) =>{
         let content = event.target.value;
         let lastCharacter = content.charAt(content.length-1);
@@ -69,6 +74,7 @@ const InputPanel = () => {
                 dispatch(displayActions.handleDecimal(true));
 
             }
+
             else{
                 if(equation === "" && lastCharacter === "-"){
                     dispatch(displayActions.handleInput(lastCharacter));
@@ -102,6 +108,10 @@ const InputPanel = () => {
                     }
                 }
             }
+        }
+        else if(lastCharacter === "="){
+            let res = solveEquation(equation);
+            console.log(res);
         }
     }
 

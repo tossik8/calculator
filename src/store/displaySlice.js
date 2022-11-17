@@ -26,9 +26,6 @@ const dipslaySlice = createSlice({
             state.equation = "";
             state.isDecimal = false;
             state.isEmpty = true;
-        },
-        solveEquation(state){
-
         }
     }
 })
