@@ -97,6 +97,7 @@ const Button = (props) => {
         else if(lastCharacter === "C"){
             dispatch(displayActions.clearInput());
             dispatch(inputActions.handleInput(""));
+            document.getElementById("input").focus();
         }
     }
     return (

@@ -10,7 +10,6 @@ function App() {
   const solveEquation = (equation) => {
     let equationCopy = parseInput(equation);
     let res = "="
-
     if(/\/0$|\/0[-+/*]/.test(equationCopy)){
       res += "infinity";
     }

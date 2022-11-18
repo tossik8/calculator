@@ -44,7 +44,6 @@ const InputPanel = (props) => {
                     dispatch(displayActions.handleInput(lastCharacter));
                     dispatch(inputActions.handleInput(lastCharacter));
                 }
-
                 else{
                     dispatch(inputActions.handleInput(content));
                     dispatch(displayActions.handleInput(lastCharacter));
