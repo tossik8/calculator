@@ -94,6 +94,10 @@ const Button = (props) => {
             let res = props.solveEquation(equation);
             console.log(res);
         }
+        else if(lastCharacter === "C"){
+            dispatch(displayActions.clearInput());
+            dispatch(inputActions.handleInput(""));
+        }
     }
     return (
          <li>
