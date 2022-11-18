@@ -3,7 +3,7 @@ import { displayActions } from "../store/displaySlice";
 import { inputActions } from "../store/inputSlice";
 import { useEffect } from "react";
 
-const InputPanel = () => {
+const InputPanel = (props) => {
     const dispatch = useDispatch();
     const inputValue = useSelector(state => state.inputReducer.value);
     const equation = useSelector(state => state.displayReducer.equation);
@@ -23,10 +23,6 @@ const InputPanel = () => {
         }
     });
 
-
-    function solveEquation(equation){
-        return 0;
-    }
     const handleChange = (event) =>{
         let content = event.target.value;
         let lastCharacter = content.charAt(content.length-1);
@@ -110,7 +106,7 @@ const InputPanel = () => {
             }
         }
         else if(lastCharacter === "="){
-            let res = solveEquation(equation);
+            let res = props.solveEquation(equation);
             console.log(res);
         }
     }

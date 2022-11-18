@@ -5,7 +5,7 @@ export const data = [
     },
     {
         id:"multiply",
-        value:"X"
+        value:"*"
     },
     {
         id:"divide",
