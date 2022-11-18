@@ -19,8 +19,8 @@ const InputPanel = (props) => {
             else if(event.keyCode === 8){
                 event.preventDefault();
             }
-
         }
+        document.getElementById("input").onpaste = (event) => event.preventDefault();
     });
 
     const handleChange = (event) =>{
