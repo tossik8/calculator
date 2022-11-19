@@ -13,7 +13,9 @@ function App() {
     if(/\/0$|\/0[-+/*]/.test(equationCopy)){
       res += "infinity";
     }
-    else{}
+    else{
+
+    }
 
     return equationCopy;
   }
@@ -33,7 +35,24 @@ function App() {
       }
       index = equationCopy.indexOf(".", index+1);
     }
-    equationCopy = equationCopy.replace("-0", "0");
+    equationCopy = equationCopy.replace(/-0([/*-+])/, "0$1")
+    let symbol = false;
+    for(let i = 0; i < equationCopy.length; ++i){
+      let char = equationCopy.charAt(i);
+      if(isSymbol(char) && !symbol){
+        symbol=true;
+      }
+      else if(isSymbol(char) && symbol){
+        equationCopy = equationCopy.substring(0, i - 1) + " " + equationCopy.charAt(i-1) + " "+ equationCopy.substring(i);
+        i+=2;
+        symbol = false;
+      }
+      else if(!isSymbol(char) && char !== "."  && symbol){
+        equationCopy = equationCopy.substring(0, i - 1) + " " + equationCopy.charAt(i-1) + " " + equationCopy.substring(i);
+        symbol = false;
+        i+=2;
+      }
+    }
     return equationCopy;
   }
   return (
