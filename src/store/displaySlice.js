@@ -19,6 +19,9 @@ const dipslaySlice = createSlice({
         handleDecimal(state, action){
             state.isDecimal = action.payload;
         },
+        changeZero(state, action){
+            state.equation = action.payload
+        },
         changeSign(state, action){
             state.equation = action.payload;
         },

@@ -22,19 +22,32 @@ const Button = (props) => {
                 document.getElementById("input").disabled = false;
             }
             else if(!isNaN(lastCharacter)){
-                if(content.charAt(content.length-2) === "+" ||
+                if(isEmpty && lastCharacter === '0'){
+                    dispatch(displayActions.handleInput(lastCharacter));
+                    dispatch(inputActions.handleInput(lastCharacter));
+                    dispatch(displayActions.handleEmpty(false));
+
+                }
+                else if(!isEmpty && content.charAt(0) === "0" && lastCharacter === "0" && !isDecimal){}
+                else if(!isEmpty && !isDecimal &&  content.charAt(content.length - 2) === "0" && lastCharacter !== "0"){
+                    dispatch(displayActions.changeZero(equation.substring(0, equation.length - 1) + lastCharacter));
+                    dispatch(inputActions.handleInput(lastCharacter));
+                }
+                else if(content.charAt(content.length-2) === "+" ||
                   content.charAt(content.length-2) === "/" ||
                   content.charAt(content.length-2) === "*" ||
                   content.charAt(content.length-2) === "-"){
                     dispatch(displayActions.handleInput(lastCharacter));
                     dispatch(inputActions.handleInput(lastCharacter));
+                    dispatch(displayActions.handleEmpty(false));
                 }
 
                 else{
                     dispatch(inputActions.handleInput(content));
                     dispatch(displayActions.handleInput(lastCharacter));
+                    dispatch(displayActions.handleEmpty(false));
+
                 }
-                dispatch(displayActions.handleEmpty(false));
             }
             else if(lastCharacter === "."){
                 if(isEmpty){
