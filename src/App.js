@@ -22,20 +22,25 @@ function App() {
   function isSymbol(symbol){
     return symbol === "*" || symbol === "-" || symbol === "+" || symbol === "/";
   }
-  function parseInput(equationCopy){
-    if(isSymbol(equationCopy.charAt(equationCopy.length - 1)) && isSymbol(equationCopy.charAt(equationCopy.length - 2))){
-      equationCopy = equationCopy.substring(0, equationCopy.length - 2);
-    }
-    else if(equationCopy.charAt(equationCopy.length - 1) === "." || isSymbol(equationCopy.charAt(equationCopy.length - 1))) {
-      equationCopy = equationCopy.substring(0, equationCopy.length - 1);
-    }
+  function removeDecimalPoints(equationCopy){
+    if(equationCopy.charAt(equationCopy.length - 1) === ".") equationCopy = equationCopy.substring(0, equationCopy.length - 1);
     for(let index = equationCopy.indexOf("."); index !== -1;){
       if(isSymbol(equationCopy.charAt(index + 1))){
         equationCopy = equationCopy.substring(0, index) + equationCopy.substring(index+1);
       }
       index = equationCopy.indexOf(".", index+1);
     }
-    equationCopy = equationCopy.replace(/-0([/*-+])/, "0$1")
+    return equationCopy;
+  }
+  function parseInput(equationCopy){
+    if(isSymbol(equationCopy.charAt(equationCopy.length - 1)) && isSymbol(equationCopy.charAt(equationCopy.length - 2))){
+      equationCopy = equationCopy.substring(0, equationCopy.length - 2);
+    }
+    else if(isSymbol(equationCopy.charAt(equationCopy.length - 1))) {
+      equationCopy = equationCopy.substring(0, equationCopy.length - 1);
+    }
+
+    equationCopy = removeDecimalPoints(equationCopy);
     let symbol = false;
     for(let i = 0; i < equationCopy.length; ++i){
       let char = equationCopy.charAt(i);
