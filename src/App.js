@@ -4,11 +4,14 @@ import Buttons from './components/Buttons';
 import DisplayPanel from './components/DisplayPanel';
 import InputPanel from './components/InputPanel';
 import { displayActions } from './store/displaySlice';
+import Stack from './stack';
 
 function App() {
   const dispatch = useDispatch();
   const solveEquation = (equation) => {
     let equationCopy = parseInput(equation);
+    let stack = new Stack();
+    let values = equationCopy.split(" ");
     let res = "="
     if(/\/0$|\/0[-+/*]/.test(equationCopy)){
       res += "infinity";
