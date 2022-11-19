@@ -7,7 +7,7 @@ class Stack{
         return this.top===-1;
     }
     push(value){
-        this.values.push(value);
+        this.values[++this.top] = value;
     }
     pop(){
         if(this.isEmpty()) return -1;

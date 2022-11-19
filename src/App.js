@@ -12,13 +12,40 @@ function App() {
     let equationCopy = parseInput(equation);
     let stack = new Stack();
     let values = equationCopy.split(" ");
+    for(let i = 0; i < values.length; ++i){
+      if(values[i] === "-"){
+        let value2 = stack.peek();
+        stack.pop();
+        let value1 = stack.peek();
+        stack.pop();
+        stack.push(value1 - value2);
+      }
+      else if(values[i] === "/"){
+        let value2 = stack.peek();
+        stack.pop();
+        let value1 = stack.peek();
+        stack.pop();
+        stack.push(value1 / value2);
+      }
+      else if(values[i] === "*"){
+        let value2 = stack.peek();
+        stack.pop();
+        let value1 = stack.peek();
+        stack.pop();
+        stack.push(value1 * value2);
+      }
+      else if(values[i] === "+"){
+        let value2 = stack.peek();
+        stack.pop();
+        let value1 = stack.peek();
+        stack.pop();
+        stack.push(value1 + value2);
+      }
+      else {
+        stack.push(parseFloat(values[i]));
+      }
+    }
     let res = "="
-    if(/\/0$|\/0[-+/*]/.test(equationCopy)){
-      res += "infinity";
-    }
-    else{
-
-    }
 
     return equationCopy;
   }
