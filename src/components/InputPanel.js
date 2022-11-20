@@ -6,10 +6,14 @@ import { useEffect } from "react";
 const InputPanel = (props) => {
     const dispatch = useDispatch();
     const inputValue = useSelector(state => state.inputReducer.value);
-    const equation = useSelector(state => state.displayReducer.equation);
+    let equation = useSelector(state => state.displayReducer.equation);
     const isEmpty = useSelector(state => state.displayReducer.isEmpty);
-    const isDecimal = useSelector(state => state.displayReducer.isDecimal);
+    let isDecimal = useSelector(state => state.displayReducer.isDecimal);
 
+
+    function isSymbol(char){
+        return char === "*" || char === "/" || char==="-" || char === "+";
+    }
     useEffect(() => {
         window.onkeydown = (event) =>{
             if(event.key=== "Escape"){
@@ -24,10 +28,16 @@ const InputPanel = (props) => {
     });
 
     const handleChange = (event) =>{
-        console.log(equation);
         let content = event.target.value;
         let lastCharacter = content.charAt(content.length-1);
-        if((!isNaN(lastCharacter) || lastCharacter === "*" || lastCharacter === "/" || lastCharacter === "+" || lastCharacter === "-" || lastCharacter === ".") && lastCharacter!==" "){
+        if(lastCharacter === "=" && !equation.includes("=")){
+            let res = props.solveEquation(equation);
+            dispatch(inputActions.handleInput(res));
+            dispatch(displayActions.handleInput("="+res));
+            return;
+        }
+        
+        if((!isNaN(lastCharacter) || isSymbol(lastCharacter) || lastCharacter === ".") && lastCharacter!==" "){
             if(content.length === 22 && !isNaN(lastCharacter)){
                 dispatch(inputActions.handleInput("Digimit Limit Met"));
                 document.getElementById("input").disabled = true;
@@ -44,14 +54,10 @@ const InputPanel = (props) => {
                 }
                 else if(!isEmpty && content.charAt(0) === "0" && lastCharacter === "0" && !isDecimal){}
                 else if(!isEmpty && !isDecimal && content.charAt(content.length - 2) === "0" && content.length <= 2 && lastCharacter !== "0"){
-                    console.log("here")
                     dispatch(displayActions.changeZero(equation.substring(0, equation.length - 1) + lastCharacter));
                     dispatch(inputActions.handleInput(lastCharacter));
                 }
-                else if(content.charAt(content.length-2) === "+" ||
-                  content.charAt(content.length-2) === "/" ||
-                  content.charAt(content.length-2) === "*" ||
-                  content.charAt(content.length-2) === "-"){
+                else if(isSymbol(content.charAt(content.length-2))){
                     dispatch(displayActions.handleInput(lastCharacter));
                     dispatch(inputActions.handleInput(lastCharacter));
                 }
@@ -71,6 +77,7 @@ const InputPanel = (props) => {
                     dispatch(displayActions.handleEmpty(false));
                 }
                 else if(!isDecimal){
+                    console.log("here");
                     if(!isNaN(equation.charAt(equation.length - 1))){
                         dispatch(displayActions.handleInput(lastCharacter));
                         dispatch(inputActions.handleInput(content));
@@ -118,10 +125,7 @@ const InputPanel = (props) => {
                 }
             }
         }
-        else if(lastCharacter === "="){
-            let res = props.solveEquation(equation);
-            console.log(res);
-        }
+
     }
 
 

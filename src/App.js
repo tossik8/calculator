@@ -1,15 +1,12 @@
-import { useDispatch } from 'react-redux';
 import './App.css';
 import Buttons from './components/Buttons';
 import DisplayPanel from './components/DisplayPanel';
 import InputPanel from './components/InputPanel';
-import { displayActions } from './store/displaySlice';
 import Stack from './stack';
-import { inputActions } from './store/inputSlice';
 
 function App() {
-  const dispatch = useDispatch();
   const solveEquation = (equation) => {
+    if(equation.includes("Infinity")) return "Infinity";
     let equationCopy = parseInput(equation);
     let stack = new Stack();
     let postfixString = "";
@@ -76,11 +73,7 @@ function App() {
     }
     let calculation = stack.peek();
     stack.pop();
-    let res = "=" + calculation;
-    dispatch(inputActions.handleInput(calculation));
-    dispatch(displayActions.clearInput());
-    dispatch(displayActions.handleInput(equationCopy + res));
-    return equationCopy;
+    return calculation;
   }
   function isSymbol(symbol){
     return symbol === "*" || symbol === "-" || symbol === "+" || symbol === "/";
@@ -107,7 +100,7 @@ function App() {
     let symbol = false;
     for(let i = 0; i < equationCopy.length; ++i){
       let char = equationCopy.charAt(i);
-      if(isSymbol(char) && !symbol){
+      if(isSymbol(char) && i !== 0 && !symbol){
         symbol=true;
       }
       else if(isSymbol(char) && symbol){

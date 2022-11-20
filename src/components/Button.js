@@ -8,10 +8,20 @@ const Button = (props) => {
     const isEmpty = useSelector(state => state.displayReducer.isEmpty);
     const isDecimal = useSelector(state => state.displayReducer.isDecimal);
 
+    function isSymbol(char){
+        return char === "*" || char === "/" || char==="-" || char === "+";
+    }
+
     const handleClick = () =>{
         let content = document.getElementById("input").value + props.data.value;
         let lastCharacter = content.charAt(content.length-1);
-        if((!isNaN(lastCharacter) || lastCharacter === "*" || lastCharacter === "/" || lastCharacter === "+" || lastCharacter === "-" || lastCharacter === ".") && lastCharacter!==" "){
+        if(lastCharacter === "=" && !equation.includes("=")){
+            let res = props.solveEquation(equation);
+            dispatch(inputActions.handleInput(res));
+            dispatch(displayActions.handleInput("="+res));
+            return;
+        }
+        if((!isNaN(lastCharacter) || isSymbol(lastCharacter) || lastCharacter === ".") && lastCharacter!==" "){
             if(content.length === 22 && !isNaN(lastCharacter)){
                 dispatch(inputActions.handleInput("Digimit Limit Met"));
                 document.getElementById("input").disabled = true;
@@ -25,29 +35,24 @@ const Button = (props) => {
                 if(isEmpty && lastCharacter === '0'){
                     dispatch(displayActions.handleInput(lastCharacter));
                     dispatch(inputActions.handleInput(lastCharacter));
-                    dispatch(displayActions.handleEmpty(false));
-
                 }
                 else if(!isEmpty && content.charAt(0) === "0" && lastCharacter === "0" && !isDecimal){}
-                else if(!isEmpty && !isDecimal &&  content.charAt(content.length - 2) === "0" && content.length <= 2 && lastCharacter !== "0"){
+                else if(!isEmpty && !isDecimal && content.charAt(content.length - 2) === "0" && content.length <= 2 && lastCharacter !== "0"){
                     dispatch(displayActions.changeZero(equation.substring(0, equation.length - 1) + lastCharacter));
                     dispatch(inputActions.handleInput(lastCharacter));
                 }
-                else if(content.charAt(content.length-2) === "+" ||
-                  content.charAt(content.length-2) === "/" ||
-                  content.charAt(content.length-2) === "*" ||
-                  content.charAt(content.length-2) === "-"){
+                else if(isSymbol(content.charAt(content.length-2))){
                     dispatch(displayActions.handleInput(lastCharacter));
                     dispatch(inputActions.handleInput(lastCharacter));
-                    dispatch(displayActions.handleEmpty(false));
                 }
 
                 else{
                     dispatch(inputActions.handleInput(content));
                     dispatch(displayActions.handleInput(lastCharacter));
-                    dispatch(displayActions.handleEmpty(false));
 
                 }
+                dispatch(displayActions.handleEmpty(false));
+
             }
             else if(lastCharacter === "."){
                 if(isEmpty){
@@ -102,10 +107,6 @@ const Button = (props) => {
                     }
                 }
             }
-        }
-        else if(lastCharacter === "="){
-            let res = props.solveEquation(equation);
-            console.log(res);
         }
         else if(lastCharacter === "C"){
             dispatch(displayActions.clearInput());
