@@ -36,7 +36,18 @@ const InputPanel = (props) => {
             dispatch(displayActions.handleInput("="+res));
             return;
         }
+        if(equation.includes("=")){
+            equation = equation.substring(equation.indexOf("=")+1);
 
+            dispatch(displayActions.clearInput());
+            dispatch(displayActions.handleInput(equation));
+            dispatch(displayActions.handleEmpty(false));
+            if(equation.includes(".")) {
+                isDecimal =true;
+                dispatch(displayActions.handleDecimal(true));
+            }
+
+        }
         if((!isNaN(lastCharacter) || isSymbol(lastCharacter) || lastCharacter === ".") && lastCharacter!==" "){
             if(content.length === 22 && !isNaN(lastCharacter)){
                 dispatch(inputActions.handleInput("Digimit Limit Met"));
@@ -48,6 +59,7 @@ const InputPanel = (props) => {
                 document.getElementById("input").disabled = false;
             }
             else if(!isNaN(lastCharacter)){
+
                 if(isEmpty && lastCharacter === '0'){
                     dispatch(displayActions.handleInput(lastCharacter));
                     dispatch(inputActions.handleInput(lastCharacter));
@@ -97,27 +109,27 @@ const InputPanel = (props) => {
                 }
                 else if(!isEmpty){
                     dispatch(displayActions.handleDecimal(false));
-                    if(!isNaN(content.charAt(content.length-2)) || content.charAt(content.length-2) === "." ){
+                    if(!isSymbol(content.charAt(content.length-2)) || content.charAt(content.length-2) === "." ){
                         dispatch(displayActions.handleInput(lastCharacter));
                         dispatch(inputActions.handleInput(lastCharacter));
                     }
 
-                    else if(isNaN(equation.charAt(equation.length-2)) && equation.charAt(equation.length-2) !== "." && lastCharacter !== "-" ){
+                    else if(isSymbol(equation.charAt(equation.length-2)) && equation.charAt(equation.length-2) !== "." && lastCharacter !== "-" ){
                         dispatch(displayActions.changeSign(equation.substring(0, equation.length - 2) + lastCharacter));
                         dispatch(inputActions.handleInput(lastCharacter));
                     }
-                    else if(isNaN(equation.charAt(equation.length-1)) && equation.charAt(equation.length-2) === "." && lastCharacter === "-"){
+                    else if(isSymbol(equation.charAt(equation.length-1)) && equation.charAt(equation.length-2) === "." && lastCharacter === "-"){
                         dispatch(displayActions.handleInput(lastCharacter));
                         dispatch(inputActions.handleInput(lastCharacter));
                     }
-                    else if(isNaN(content.charAt(content.length-2)) && lastCharacter === "-"){
-                        if(!isNaN(equation.charAt(equation.length - 2))){
+                    else if(isSymbol(content.charAt(content.length-2)) && lastCharacter === "-"){
+                        if(!isSymbol(equation.charAt(equation.length - 2))){
                             dispatch(displayActions.handleInput(lastCharacter));
                             dispatch(inputActions.handleInput(lastCharacter));
                         }
 
                     }
-                    else if(isNaN(equation.charAt(equation.length - 1))){
+                    else if(isSymbol(equation.charAt(equation.length - 1))){
                         dispatch(displayActions.changeSign(equation.substring(0, equation.length - 1) + lastCharacter));
                         dispatch(inputActions.handleInput(lastCharacter));
                     }
