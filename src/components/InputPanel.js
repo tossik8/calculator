@@ -7,7 +7,7 @@ const InputPanel = (props) => {
     const dispatch = useDispatch();
     const inputValue = useSelector(state => state.inputReducer.value);
     let equation = useSelector(state => state.displayReducer.equation);
-    const isEmpty = useSelector(state => state.displayReducer.isEmpty);
+    let isEmpty = useSelector(state => state.displayReducer.isEmpty);
     let isDecimal = useSelector(state => state.displayReducer.isDecimal);
 
 
@@ -30,21 +30,29 @@ const InputPanel = (props) => {
     const handleChange = (event) =>{
         let content = event.target.value;
         let lastCharacter = content.charAt(content.length-1);
-        if(lastCharacter === "=" && !equation.includes("=")){
+        if(lastCharacter === "=" && !equation.includes("=") && equation !== "" && equation !== "."){
             let res = props.solveEquation(equation);
             dispatch(inputActions.handleInput(res));
             dispatch(displayActions.handleInput("="+res));
             return;
         }
         if(equation.includes("=")){
-            equation = equation.substring(equation.indexOf("=")+1);
-
             dispatch(displayActions.clearInput());
-            dispatch(displayActions.handleInput(equation));
-            dispatch(displayActions.handleEmpty(false));
-            if(equation.includes(".")) {
-                isDecimal =true;
-                dispatch(displayActions.handleDecimal(true));
+            if(!isSymbol(lastCharacter)){
+                dispatch(inputActions.handleInput(""));
+                content=lastCharacter;
+                if(lastCharacter===".") dispatch(displayActions.handleDecimal(true));
+                if(lastCharacter === "0" || lastCharacter === "."){
+                    dispatch(displayActions.handleInput(lastCharacter));
+                    dispatch(inputActions.handleInput(lastCharacter));
+                    dispatch(displayActions.handleEmpty(false));
+                    return;
+                }
+            }
+            else{
+                equation = equation.substring(equation.indexOf("=")+1);
+                dispatch(displayActions.handleInput(equation));
+                dispatch(displayActions.handleEmpty(false));
             }
 
         }
@@ -99,6 +107,7 @@ const InputPanel = (props) => {
                     }
                 }
                 dispatch(displayActions.handleDecimal(true));
+
 
             }
 
