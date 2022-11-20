@@ -28,6 +28,10 @@ function App() {
         stack.push(values[i]);
       }
       else if(values[i] === "*" || values[i] === "/"){
+        while(stack.peek() === "*" || stack.peek()=== "/"){
+          postfixString+=stack.peek() + " ";
+          stack.pop();
+        }
         stack.push(values[i]);
       }
     }

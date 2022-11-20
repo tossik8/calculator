@@ -24,6 +24,7 @@ const InputPanel = (props) => {
     });
 
     const handleChange = (event) =>{
+        console.log(equation);
         let content = event.target.value;
         let lastCharacter = content.charAt(content.length-1);
         if((!isNaN(lastCharacter) || lastCharacter === "*" || lastCharacter === "/" || lastCharacter === "+" || lastCharacter === "-" || lastCharacter === ".") && lastCharacter!==" "){
