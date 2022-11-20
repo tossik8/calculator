@@ -42,7 +42,8 @@ const InputPanel = (props) => {
                     dispatch(inputActions.handleInput(lastCharacter));
                 }
                 else if(!isEmpty && content.charAt(0) === "0" && lastCharacter === "0" && !isDecimal){}
-                else if(!isEmpty && !isDecimal && content.charAt(content.length - 2) === "0" && lastCharacter !== "0"){
+                else if(!isEmpty && !isDecimal && content.charAt(content.length - 2) === "0" && content.length <= 2 && lastCharacter !== "0"){
+                    console.log("here")
                     dispatch(displayActions.changeZero(equation.substring(0, equation.length - 1) + lastCharacter));
                     dispatch(inputActions.handleInput(lastCharacter));
                 }

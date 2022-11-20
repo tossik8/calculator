@@ -5,13 +5,38 @@ import DisplayPanel from './components/DisplayPanel';
 import InputPanel from './components/InputPanel';
 import { displayActions } from './store/displaySlice';
 import Stack from './stack';
+import { inputActions } from './store/inputSlice';
 
 function App() {
   const dispatch = useDispatch();
   const solveEquation = (equation) => {
     let equationCopy = parseInput(equation);
     let stack = new Stack();
+    let postfixString = "";
     let values = equationCopy.split(" ");
+    for(let i = 0; i <values.length; ++i){
+      if(!isSymbol(values[i])){
+        postfixString+=values[i] + " ";
+      }
+      else if(values[i] === "+" || values[i] === "-"){
+        if(!stack.isEmpty()){
+          while(!stack.isEmpty()){
+            postfixString += stack.peek() + " ";
+            stack.pop();
+          }
+        }
+        stack.push(values[i]);
+      }
+      else if(values[i] === "*" || values[i] === "/"){
+        stack.push(values[i]);
+      }
+    }
+    while(!stack.isEmpty()){
+      postfixString+= stack.peek() + " ";
+      stack.pop();
+    }
+    postfixString = postfixString.substring(0, postfixString.length-1);
+    values = postfixString.split(" ");
     for(let i = 0; i < values.length; ++i){
       if(values[i] === "-"){
         let value2 = stack.peek();
@@ -45,8 +70,12 @@ function App() {
         stack.push(parseFloat(values[i]));
       }
     }
-    let res = "="
-
+    let calculation = stack.peek();
+    stack.pop();
+    let res = "=" + calculation;
+    dispatch(inputActions.handleInput(calculation));
+    dispatch(displayActions.clearInput());
+    dispatch(displayActions.handleInput(equationCopy + res));
     return equationCopy;
   }
   function isSymbol(symbol){
