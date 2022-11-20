@@ -36,7 +36,7 @@ const InputPanel = (props) => {
             dispatch(displayActions.handleInput("="+res));
             return;
         }
-        
+
         if((!isNaN(lastCharacter) || isSymbol(lastCharacter) || lastCharacter === ".") && lastCharacter!==" "){
             if(content.length === 22 && !isNaN(lastCharacter)){
                 dispatch(inputActions.handleInput("Digimit Limit Met"));
@@ -77,7 +77,6 @@ const InputPanel = (props) => {
                     dispatch(displayActions.handleEmpty(false));
                 }
                 else if(!isDecimal){
-                    console.log("here");
                     if(!isNaN(equation.charAt(equation.length - 1))){
                         dispatch(displayActions.handleInput(lastCharacter));
                         dispatch(inputActions.handleInput(content));
