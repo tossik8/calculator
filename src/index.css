@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #6B6054;
+  background: linear-gradient(#005BBB, #FFD500);
   display: flex;
   flex-direction: column;
   min-height: 100vh;
