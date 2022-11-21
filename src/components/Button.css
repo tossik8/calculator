@@ -2,7 +2,7 @@
     user-select: none;
     font-family: 'Orbitron', sans-serif;
     border:none;
-    color:rgb(100,100,100);
+    color:white;
     width: 100%;
     height: 4rem;
     width: 5.53rem;
@@ -10,20 +10,20 @@
 }
 .button:hover{
     filter: brightness(115%);
-    color: #01BAEF;
+    color: #09abd7;
 }
 #zero{
     grid-column: span 2;
     width: 100%;
 }
 .operator{
-    background-color: gray;
+    background-color: #8D6346;
 }
 .number{
-    background-color: #B3AA99;
+    background-color: #4C2B36;
 }
 .equal{
-    background-color: #A08F65;
+    background-color: #384E77;
     grid-row: 4/6;
     grid-column: 4/5;
     height: 100%;
