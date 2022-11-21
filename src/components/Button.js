@@ -1,4 +1,5 @@
 import "./Button.css";
+
 const Button = (props) => {
 
     const handleClick = () =>{
@@ -6,10 +7,19 @@ const Button = (props) => {
         let lastCharacter = content.charAt(content.length-1);
         props.getInput(content, lastCharacter)
     }
+    const isOperator = (value) => {
+        return value === "*" || value === "+" || value === "/" || value === "-";
+    }
+    const isEqual = (value)=>{
+        return value === "=";
+    }
+    const isClear = (value) =>{
+        return value === "AC";
+    }
     return (
-         <li>
-            <button id={props.data.id} className="button" onClick={handleClick}>{props.data.value}</button>
-         </li>
+
+            <button id={props.data.id} className={isOperator(props.data.value)? "operator button": isEqual(props.data.value)? "equal button" : isClear(props.data.value)? "clear button": "number button"} onClick={handleClick}>{props.data.value}</button>
+
     );
 }
 

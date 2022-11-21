@@ -163,7 +163,6 @@ function App() {
               for(let button of buttons){
                 button.removeAttribute("disabled");
               }
-              document.getElementById("input").focus();
           }, 1000);
       }
 
