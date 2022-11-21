@@ -12,6 +12,7 @@ function App() {
   let equation = useSelector(state => state.displayReducer.equation);
   let isEmpty = useSelector(state => state.displayReducer.isEmpty);
   let isDecimal = useSelector(state => state.displayReducer.isDecimal);
+
   const solveEquation = (equation) => {
     if(equation.includes("Infinity")) return "Infinity";
     let equationCopy = parseInput(equation);
@@ -96,6 +97,7 @@ function App() {
     return equationCopy;
   }
   function parseInput(equationCopy){
+    equationCopy = equationCopy.replace(",", "");
     if(isSymbol(equationCopy.charAt(equationCopy.length - 1)) && isSymbol(equationCopy.charAt(equationCopy.length - 2))){
       equationCopy = equationCopy.substring(0, equationCopy.length - 2);
     }
@@ -250,6 +252,8 @@ function App() {
               }
           }
       }
+
+
   }
   else if(lastCharacter==="C"){
     dispatch(displayActions.clearInput());
