@@ -21,7 +21,6 @@ const Buttons = (props) => {
             <Button  getInput={props.getInput} solveEquation={props.solveEquation} data={data[14]}/>
             <Button  getInput={props.getInput} solveEquation={props.solveEquation} data={data[15]}/>
             <Button  getInput={props.getInput} solveEquation={props.solveEquation} data={data[16]}/>
-
         </div>
      );
 }

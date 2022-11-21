@@ -1,20 +1,17 @@
 .displayPanel{
     display: flex;
     justify-content: flex-end;
-    align-items: center;
     min-height: 1.5rem;
     margin-top:-0.1rem;
     min-width: 22.1rem;
     max-width: 22.1rem;
-    background-color: #64b6ac;
-    text-align: right;
+    background-color: #5B616A;
     word-break: break-all;
-    color: #DDF45B;
     user-select: none;
 }
 p.display{
     margin: 0;
-    word-wrap: break-word;
     font-size: 0.85rem;
-
+    color: #340068;
+    text-align: right;
 }

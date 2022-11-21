@@ -136,12 +136,18 @@ function App() {
       if(!isSymbol(lastCharacter)){
           dispatch(inputActions.handleInput(""));
           content=lastCharacter;
-          if(lastCharacter===".") dispatch(displayActions.handleDecimal(true));
-          if(lastCharacter === "0" || lastCharacter === "."){
+          if(lastCharacter === "0"){
               dispatch(displayActions.handleInput(lastCharacter));
               dispatch(inputActions.handleInput(lastCharacter));
               dispatch(displayActions.handleEmpty(false));
               return;
+          }
+          if(lastCharacter===".") {
+            dispatch(displayActions.handleInput("0."));
+            dispatch(inputActions.handleInput("0."));
+            dispatch(displayActions.handleEmpty(false));
+            dispatch(displayActions.handleDecimal(true));
+            return;
           }
       }
       else{

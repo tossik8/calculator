@@ -1,5 +1,6 @@
 .App {
-  border: 3px solid #64B6AC;
+  padding:0.3rem;
+  background-color: #929487;
   display: flex;
   flex-direction: column;
   justify-content: center;
