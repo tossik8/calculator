@@ -1,16 +1,19 @@
 .input-div{
     background-color: #64b6ac;
+    width: 100%;
 }
 #input{
-    display: flex;
-    justify-content: flex-end;
     outline: none;
-    direction: rtl ;
     background-color:#64b6ac ;
     border: none;
-    min-width: 24rem;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
+    min-width: 22rem;
     color: transparent;
     text-shadow: 0 0 0 white;
     font-family: 'Orbitron', sans-serif;
+    text-align: right;
+
+}
+::-webkit-input-placeholder{
+    color: white;
 }

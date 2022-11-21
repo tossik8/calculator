@@ -5,7 +5,7 @@ const DisplayPanel = () => {
     const equation = useSelector(state => state.displayReducer.equation);
     return (
          <div className="displayPanel">
-            <p>{equation}</p>
+            <p className="display">{equation}</p>
          </div>
     );
 }
