@@ -1,0 +1,16 @@
+.input-div{
+    background-color: #64b6ac;
+}
+#input{
+    display: flex;
+    justify-content: flex-end;
+    outline: none;
+    direction: rtl ;
+    background-color:#64b6ac ;
+    border: none;
+    min-width: 24rem;
+    font-size: 1.3rem;
+    color: transparent;
+    text-shadow: 0 0 0 white;
+    font-family: 'Orbitron', sans-serif;
+}

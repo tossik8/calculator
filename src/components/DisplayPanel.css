@@ -1,0 +1,16 @@
+.displayPanel{
+    display: flex;
+    justify-content: flex-end;
+    align-items:baseline;
+    min-height: 2rem;
+    min-width: 21rem;
+    max-width: 21rem;
+    background-color: #64b6ac;
+    text-align: right;
+    word-break: break-all;
+    color: #DDF45B;
+    user-select: none;
+}
+::-webkit-input-placeholder{
+    color: white;
+}

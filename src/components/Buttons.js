@@ -1,5 +1,6 @@
 import Button from "./Button";
 import {data} from "../data/data";
+import "./Buttons.css";
 const Buttons = (props) => {
     return (
         <ul>

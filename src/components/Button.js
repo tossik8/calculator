@@ -1,3 +1,4 @@
+import "./Button.css";
 const Button = (props) => {
 
     const handleClick = () =>{
@@ -7,7 +8,7 @@ const Button = (props) => {
     }
     return (
          <li>
-            <button id={props.data.id} onClick={handleClick}>{props.data.value}</button>
+            <button id={props.data.id} className="button" onClick={handleClick}>{props.data.value}</button>
          </li>
     );
 }

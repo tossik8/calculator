@@ -152,15 +152,21 @@ function App() {
 
   }
   if((!isNaN(lastCharacter) || isSymbol(lastCharacter) || lastCharacter === ".") && lastCharacter!==" "){
-      if(content.length === 22 && !isNaN(lastCharacter)){
+      if((content.length >= 22 && !isNaN(lastCharacter))){
+          let buttons = document.getElementsByClassName("button");
+          for(let button of buttons){
+            button.disabled = true;
+          }
           dispatch(inputActions.handleInput("Digimit Limit Met"));
-          document.getElementById("input").disabled = true;
           setTimeout(() => {
-              document.getElementById("input").value = content.substring(0, 21);
+              dispatch(inputActions.handleInput(content.substring(0, 21)));
+              for(let button of buttons){
+                button.removeAttribute("disabled");
+              }
               document.getElementById("input").focus();
           }, 1000);
-          document.getElementById("input").disabled = false;
       }
+
       else if(!isNaN(lastCharacter)){
 
           if(isEmpty && lastCharacter === '0'){
@@ -240,12 +246,16 @@ function App() {
           }
       }
   }
+  else if(lastCharacter==="C"){
+    dispatch(displayActions.clearInput());
+    dispatch(inputActions.handleInput(""));
+  }
 
   }
   return (
     <div className="App">
         <DisplayPanel/>
-        <InputPanel solveEquation={solveEquation} getInput={getInput}/>
+        <InputPanel/>
         <Buttons solveEquation={solveEquation} getInput={getInput}/>
     </div>
   );
