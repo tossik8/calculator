@@ -34,3 +34,11 @@
     width: 100%;
     grid-column: 1/3;
 }
+@media screen and (max-width: 370px){
+    .button{
+        width: 5rem;
+    }
+    .clear{
+        width: 100%;
+    }
+}

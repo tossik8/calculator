@@ -17,3 +17,9 @@
 ::-webkit-input-placeholder{
     color: white;
 }
+@media screen and (max-width: 370px) {
+    #input{
+        min-width: 20rem;
+        max-width: 20rem;
+    }
+}
